@@ -1,7 +1,3 @@
-data "aws_availability_zones" "AZs" {
-  state = "available"
-}
-
 resource "aws_subnet" "public" {
   count = min(length(var.public_subnets), length(data.aws_availability_zones.AZs.names))
   vpc_id = aws_vpc.this.id
