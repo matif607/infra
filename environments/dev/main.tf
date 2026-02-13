@@ -21,5 +21,25 @@ module "eks" {
   developer_names = var.developer_names
   user_arns = module.iam.user_arns
   developer_role_arn = module.iam.developer_role_arn
+  user_namespaces = var.user_namespaces
   eks_version = "1.31"
+}
+
+# This fetches the authentication token for the cluster we just planned
+data "aws_eks_cluster_auth" "this" {
+  name = module.eks.cluster_name
+}
+
+provider "kubernetes" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_ca_certificate)
+  token                  = data.aws_eks_cluster_auth.this.token
+}
+
+# Now we create the "Jenkins" namespace so Bob's permissions have a target
+resource "kubernetes_namespace_v1" "user_space" {
+  for_each = toset(var.user_namespaces)
+  metadata {
+    name = each.value
+  }
 }
