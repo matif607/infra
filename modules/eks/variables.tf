@@ -22,3 +22,15 @@ variable "private_subnet_ids" {
   type        = list(string)
   description = "The list of private subnets from the VPC module"
 }
+
+variable "developer_role_arn" {
+  type = string
+}
+
+variable "developer_names" {
+  type = map(string)
+}
+
+variable "user_arns" {
+  type = map(string)
+}
