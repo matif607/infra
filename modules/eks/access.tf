@@ -35,6 +35,6 @@ resource "aws_eks_access_policy_association" "dev_policy" {
 
   access_scope {
     type       = "namespace"
-    namespaces = ["jenkins"]
+    namespaces = var.user_namespaces
   }
 }
