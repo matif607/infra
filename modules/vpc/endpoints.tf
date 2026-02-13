@@ -1,12 +1,12 @@
 resource "aws_vpc_endpoint" "s3" {
   vpc_id = aws_vpc.this.id
-  service_name = "com.amazonaws.${data.aws.region.current.name}.s3"
+  service_name = "com.amazonaws.${data.aws_region.current.id}.s3"
   
-vpc_endpoint_type = "Gateway"
+  vpc_endpoint_type = "Gateway"
 
-tags = {
-  Name = "${var.vpc_name}-s3-endpoint"
-}
+  tags = {
+    Name = "${var.vpc_name}-s3-gw-endpoint"
+  }
 }
 
 resource "aws_security_group" "vpc_endpoints" {
@@ -31,7 +31,7 @@ resource "aws_vpc_endpoint" "interface_endpoints" {
   ])
 
   vpc_id = aws_vpc.this.id
-  service_name = "com.amazonaws.${data.aws_region.current.name}.${each.key}"
+  service_name = "com.amazonaws.${data.aws_region.current.id}.${each.key}"
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [aws_security_group.vpc_endpoints.id]

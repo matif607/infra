@@ -6,3 +6,12 @@ module "dev_vpc" {
   public_subnets  = ["10.0.0.0/24", "10.0.1.0/24"]
   private_subnets = ["10.0.2.0/24", "10.0.3.0/24"]
 }
+
+module "eks" {
+  source = "../../modules/eks"
+  environment = "dev"
+  cluster_name = "opcompdev"
+  vpc_id = module.dev_vpc.vpc_id # this can be read directly from ssm if its there
+  private_subnet_ids = module.dev_vpc.private_subnets # this can be read directly from ssm if its there
+  eks_version = "1.31"
+}
