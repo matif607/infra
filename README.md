@@ -1,0 +1,1 @@
+Rename backend.conf.example to backend.conf and use values there to initialize terraform
