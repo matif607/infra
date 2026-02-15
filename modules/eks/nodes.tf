@@ -5,8 +5,14 @@ resource "aws_eks_node_group" "general" {
   # subnet_ids = split(",", data.aws_ssm_parameter.private_subnets.value)
   subnet_ids = var.private_subnet_ids
 
-  capacity_type = "ON_DEMAND"
-  instance_types = ["t3.medium"]
+  capacity_type = "SPOT"
+  instance_types = [
+    "t3.medium",
+    "t3.large",
+    "t3a.medium"
+  ]
+
+  ami_type = "AL2_x86_64"
 
   scaling_config {
     desired_size = 2

@@ -35,19 +35,17 @@ variable "user_arns" {
   type = map(string)
 }
 
-output "cluster_name" {
-  value = aws_eks_cluster.this.name
-}
-
-output "cluster_endpoint" {
-  value = aws_eks_cluster.this.endpoint
-}
-
-output "cluster_ca_certificate" {
-  value = aws_eks_cluster.this.certificate_authority[0].data
-}
-
 variable "user_namespaces" {
   type = list(string)
   default = [ "jenkins" ]
+}
+
+variable "admin_arn" {
+  type        = string
+  description = "The ARN of the primary cluster administrator"
+}
+
+variable "permanent_admins" {
+  type = list(string)
+  default = []
 }

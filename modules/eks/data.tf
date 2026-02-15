@@ -1,3 +1,4 @@
+### this will be used once ssm is ready
 # data "aws_ssm_parameter" "vpc_id" {
 #   name = "/network/${var.environment}/vpc_id"
 # }

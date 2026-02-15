@@ -1,6 +1,6 @@
 resource "aws_vpc_endpoint" "s3" {
   vpc_id = aws_vpc.this.id
-  service_name = "com.amazonaws.${data.aws_region.current.id}.s3"
+  service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
   
   vpc_endpoint_type = "Gateway"
 
@@ -27,11 +27,15 @@ resource "aws_vpc_endpoint" "interface_endpoints" {
     "ecr.api",
     "ecr.dkr",
     "ssm",
-    "ssmmessages"
+    "ssmmessages",
+    "sts",
+    "elasticloadbalancing",
+    "logs",
+    "autoscaling"
   ])
 
   vpc_id = aws_vpc.this.id
-  service_name = "com.amazonaws.${data.aws_region.current.id}.${each.key}"
+  service_name = "com.amazonaws.${data.aws_region.current.name}.${each.key}"
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [aws_security_group.vpc_endpoints.id]

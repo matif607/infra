@@ -5,3 +5,11 @@ variable "developer_names" {
 variable "user_namespaces" {
   type = list(string)
 }
+
+variable "permanent_admin_users" {
+  type = list(string)
+}
+
+variable "permanent_admin_roles" {
+  type = list(string)
+}
